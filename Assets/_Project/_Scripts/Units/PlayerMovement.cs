@@ -1,25 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D _rbPlayer;
 
     [Header ("Movements")]
-    [SerializeField] private float _moveSpeed = 20f;
+    [SerializeField] private float _moveSpeed = 14f;
     private bool _playerCanMove = true;
 
-    [Header ("Kick")]
-    public static float kickForce = 5f;
-    private float _maxKickForce = 8f;
+    public static float kickForce { get; private set; } = 8f;
+    private float _maxKickForce = 10f;
     [SerializeField] private AudioClip _kickSound;
     // [SerializeField] private ParticleSystem _particleSystem;
+    //TODO: Add particle system to kick
+
+    [Header ("Inputs")]
+    [SerializeField] private PlayerInput _playerInput;
+    private InputAction _movementAction;
 
 
     private void Start()
     {
         _rbPlayer = GetComponent<Rigidbody2D>();
+        _movementAction = _playerInput.actions["Move"];
     }
 
     private void OnEnable() {
@@ -32,11 +38,13 @@ public class PlayerMovement : MonoBehaviour
     {
         InputMovements();
     }
+    
 
     private void InputMovements()
     {
         if(_playerCanMove){
-            Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), 0f);
+            Vector2 direction = _movementAction.ReadValue<Vector2>();
+            direction.y = 0;
             _rbPlayer.velocity = direction * _moveSpeed;
         }
     }
@@ -47,13 +55,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void KickBall(Transform ball)
     {
-        CameraShake.Instance.ShakeCamera(2f);
-        AudioSystem.Instance.PlaySound(_kickSound, 0.8f);
+        CameraShake.Instance?.ShakeCamera(2f);
+        AudioSystem.Instance?.PlaySound(_kickSound, 0.8f);
         // _particleSystem?.Play();
         
         if(ball.TryGetComponent<Rigidbody2D>(out Rigidbody2D ballRb))
         {
-            ballRb.AddForce(kickForce * Vector2.up, ForceMode2D.Impulse);
+            ballRb.AddForce(ballRb.velocity.normalized + kickForce * Vector2.up, ForceMode2D.Impulse);
 
             if(kickForce < _maxKickForce)
                 kickForce += 0.1f;

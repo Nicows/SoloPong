@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
     [SerializeField] private GameObject panelPause;
-    [SerializeField] private AudioClip _clickSound;
     
     public void PauseGame()
     {
@@ -25,8 +22,5 @@ public class Pause : MonoBehaviour
         PlaySoundButton();
         SceneManager.LoadScene("Menu");
     }
-    private void PlaySoundButton()
-    {
-        AudioSystem.Instance.PlaySound(_clickSound, 0.8f);
-    }
+    private void PlaySoundButton() => AudioSystem.Instance.PlayClickButton();
 }

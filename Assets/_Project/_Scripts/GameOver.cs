@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
     [SerializeField] private GameObject panelGameOver;
-    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private AudioClip _soundButton;
     public static event System.Action OnGameOver;
     
@@ -31,6 +28,7 @@ public class GameOver : MonoBehaviour
     }
     private void PlaySoundButton()
     {
-        AudioSystem.Instance.PlaySound(_soundButton, 0.8f);
+        // AudioSystem.Instance.PlaySound(_soundButton, 0.8f);
+        AudioSystem.Instance.PlayClickButton();
     }
 }

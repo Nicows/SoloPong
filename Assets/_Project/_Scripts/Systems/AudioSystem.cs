@@ -7,6 +7,7 @@ using UnityEngine;
 public class AudioSystem : StaticInstance<AudioSystem> {
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource _soundsSource;
+    [SerializeField] private AudioClip _clickSound;
 
     public void PlayMusic(AudioClip clip) {
         _musicSource.clip = clip;
@@ -19,7 +20,12 @@ public class AudioSystem : StaticInstance<AudioSystem> {
     }
 
     public void PlaySound(AudioClip clip, float vol = 1) {
-        _soundsSource.pitch = Random.Range(0.8f, 1.2f);
         _soundsSource.PlayOneShot(clip, vol);
+    }
+
+    public void PlayClickButton()
+    {
+        _soundsSource.pitch = Random.Range(0.8f, 1.2f);
+        PlaySound(_clickSound);
     }
 }

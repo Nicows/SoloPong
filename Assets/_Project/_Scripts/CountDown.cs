@@ -5,49 +5,27 @@ using TMPro;
 
 public class CountDown : MonoBehaviour
 {
-    public BallBehaviour ball;
-    public GameObject panelCountDown;
     [Header("Countdown")]
-    public TMP_Text textCountDown;
+    [SerializeField] private GameObject _panelCountDown;
+    [SerializeField] private TextMeshProUGUI _countDownText;
     private float startCountDownAt = 3f;
-    private bool countdownEnable = false;
     private float countDownTime;
+    public static event System.Action OnCountDownEnd;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCountdown();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        CountdownEnable();
-    }
-    private void CountdownEnable()
-    {
-        if (countdownEnable)
-        {
-            if (countDownTime > 0)
-            {
-                countDownTime -= 3f * Time.deltaTime;
-                textCountDown.text = ((int) countDownTime + 1).ToString();
-            } else if(countDownTime <= 0){
-                StopCountdown();
-                ball.KickBall();
-            }
-        }
-    }
-    private void StartCountdown()
+    private IEnumerator Start()
     {
         countDownTime = startCountDownAt;
-        countdownEnable = true;
-    }
-    private void StopCountdown()
-    {
-        countdownEnable = false;
+        do
+        {
+            countDownTime -= 3f * Time.deltaTime;
+            _countDownText.text = ((int)countDownTime + 1).ToString();
+            yield return null;
+        } while (countDownTime > 0);
+
         countDownTime = 0;
-        textCountDown.text = "0";
-        panelCountDown.SetActive(false);
+        _countDownText.text = "0";
+        _panelCountDown.SetActive(false);
+
+        OnCountDownEnd?.Invoke();
     }
 }
