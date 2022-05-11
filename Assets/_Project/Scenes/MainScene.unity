@@ -1483,8 +1483,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Pause, Assembly-CSharp
+      - m_Target: {fileID: 1596841869}
+        m_TargetAssemblyTypeName: Pause, _Scripts
         m_MethodName: PauseGame
         m_Mode: 1
         m_Arguments:
@@ -1617,8 +1617,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Pause, Assembly-CSharp
+      - m_Target: {fileID: 1596841869}
+        m_TargetAssemblyTypeName: Pause, _Scripts
         m_MethodName: ReturnToMenu
         m_Mode: 1
         m_Arguments:
@@ -2039,6 +2039,7 @@ MonoBehaviour:
   _moveSpeed: 15
   _kickSound: {fileID: 8300000, guid: fce0641d0375e134496574c3bbf01090, type: 3}
   _playerInput: {fileID: 1179954434}
+  _autoMove: 0
 --- !u!212 &1179954431
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2246,8 +2247,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Pause, Assembly-CSharp
+      - m_Target: {fileID: 1596841869}
+        m_TargetAssemblyTypeName: Pause, _Scripts
         m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:

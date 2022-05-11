@@ -20,12 +20,15 @@ public class PlayerMovement : MonoBehaviour
     [Header ("Inputs")]
     [SerializeField] private PlayerInput _playerInput;
     private InputAction _movementAction;
+    [SerializeField] private bool _autoMove = false;
+    private Transform _ballTransform;
 
 
     private void Start()
     {
         _rbPlayer = GetComponent<Rigidbody2D>();
         _movementAction = _playerInput.actions["Move"];
+        _ballTransform = GameObject.FindGameObjectWithTag("Ball").transform;
     }
 
     private void OnEnable() {
@@ -37,6 +40,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         InputMovements();
+        if(_autoMove) AutoMove();
+    }
+    private void AutoMove()
+    {
+        var step = _moveSpeed * Time.deltaTime;
+        var direction = new Vector2(_ballTransform.position.x,transform.position.y);
+        transform.position = Vector3.MoveTowards(transform.position, direction, step);
     }
     
 
