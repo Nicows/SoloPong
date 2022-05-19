@@ -65,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void KickBall(Transform ball)
     {
-        CameraShake.Instance?.ShakeCamera(2f);
         AudioSystem.Instance?.PlaySound(_kickSound, 0.8f);
         // _particleSystem?.Play();
         

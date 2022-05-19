@@ -3,9 +3,9 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI _textScore;
+    [SerializeField] private Animator _animator;
     private int _score;
-    public TextMeshProUGUI textScore;
-    public Animator animator;
 
     private void OnEnable() {
         ResetScore();
@@ -28,8 +28,8 @@ public class Score : MonoBehaviour
     }
     private void UpdateTextScore()
     {
-        textScore.text = _score.ToString();
-        animator.Play("ScoreAnim");
+        _textScore.text = _score.ToString();
+        _animator.Play("ScoreAnim");
     }
     public int GetHighScore() => PlayerPrefs.GetInt("HighScore", 0);
     public void SetHighScore()

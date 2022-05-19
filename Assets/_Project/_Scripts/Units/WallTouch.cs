@@ -11,7 +11,6 @@ public class WallTouch : MonoBehaviour
             if (collision.transform.TryGetComponent<BallBehaviour>(out BallBehaviour ballBehaviour))
             {
                 ballBehaviour.WallCounterKick();
-                CameraShake.Instance?.ShakeCamera();
             }
         }
     }

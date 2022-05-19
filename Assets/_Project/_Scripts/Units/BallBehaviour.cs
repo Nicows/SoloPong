@@ -41,6 +41,7 @@ public class BallBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         _particleSystem?.Play();
+        CameraShake.Instance?.ShakeCamera();
         AudioSystem.Instance.PlaySound(_hitSound, 0.8f);
     }
 
