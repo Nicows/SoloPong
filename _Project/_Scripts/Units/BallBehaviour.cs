@@ -16,14 +16,34 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        CountDown.OnCountDownEnd += KickBallStart;
+        // CountDown.OnCountDownEnd += KickBallStart;
+        CanvasManager.OnStartGame += KickBallStart;
     }
     private void OnDisable()
     {
-        CountDown.OnCountDownEnd -= KickBallStart;
+        // CountDown.OnCountDownEnd -= KickBallStart;
+        CanvasManager.OnStartGame -= KickBallStart;
     }
 
-    private void KickBallStart()
+    private void Update()
+    {
+        // if (_rigidbodyBall.velocity.magnitude < 1)
+        // {
+        //     KickBallStart();
+        // }
+        //TODO des fois la vitesse de la balle est trop petite, on accélère la balle
+
+
+        if (_rigidbodyBall.velocity.magnitude > PlayerMovement.kickForce)
+        {
+            _rigidbodyBall.velocity = _rigidbodyBall.velocity.normalized * PlayerMovement.kickForce;
+        }
+
+
+
+    }
+
+    public void KickBallStart()
     {
         Vector2 direction = GetRandomXDirection() + Vector2.up;
         KickBall(direction);

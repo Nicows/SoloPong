@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Score : MonoBehaviour
 {
@@ -7,13 +7,17 @@ public class Score : MonoBehaviour
     [SerializeField] private Animator _animator;
     private int _score;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         ResetScore();
         WallTouch.OnWallTouch += AddScore;
+        SideWallTouch.OnSideWallTouch += AddScore;
         GameOver.OnGameOver += SetHighScore;
     }
-    private void OnDisable() {
+    private void OnDisable()
+    {
         WallTouch.OnWallTouch -= AddScore;
+        SideWallTouch.OnSideWallTouch -= AddScore;
         GameOver.OnGameOver -= SetHighScore;
     }
     private void ResetScore()

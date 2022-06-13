@@ -3,7 +3,7 @@ using UnityEngine;
 public class WallTouch : MonoBehaviour
 {
     public static event System.Action OnWallTouch;
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Ball"))
         {
