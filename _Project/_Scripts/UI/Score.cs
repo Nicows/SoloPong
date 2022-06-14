@@ -23,15 +23,11 @@ public class Score : MonoBehaviour
     private void ResetScore()
     {
         _score = 0;
-        UpdateTextScore();
+        _textScore.text = _score.ToString();
     }
     public void AddScore()
     {
         _score++;
-        UpdateTextScore();
-    }
-    private void UpdateTextScore()
-    {
         _textScore.text = _score.ToString();
         _animator.Play("ScoreAnim");
     }

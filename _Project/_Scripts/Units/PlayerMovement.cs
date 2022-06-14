@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Kick")]
     [SerializeField] private AudioClip _kickSound;
     public static float kickForce { get; private set; } = 10f;
+
+    private Transform _ballTransform;
     private float _maxKickForce = 35f;
     // [SerializeField] private ParticleSystem _particleSystem;
     //TODO: Add particle system to kick
@@ -22,13 +24,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] private PlayerInput _playerInput;
     private InputAction _movementAction;
-
+    [SerializeField] private bool _autoMove;
 
     private void Start()
     {
         _rbPlayer = GetComponent<Rigidbody2D>();
         _movementAction = _playerInput.actions["Move"];
         kickForce = 10f;
+        _ballTransform = GameObject.FindGameObjectWithTag("Ball").transform;
     }
 
     private void OnEnable()
@@ -41,7 +44,15 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        if (_autoMove) AutoMove();
         InputMovements();
+    }
+
+    private void AutoMove()
+    {
+        PlayerCanMove = false;
+        var direction = new Vector2(_ballTransform.position.x, transform.position.y);
+        transform.position = direction;
     }
 
     private void InputMovements()
@@ -71,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             ballRb.AddForce(ballRb.velocity.normalized + kickForce * Vector2.up, ForceMode2D.Impulse);
 
             if (kickForce < _maxKickForce)
-                kickForce += 1f;
+                kickForce += 0.2f;
         }
     }
     private void PlayerGameOver()
