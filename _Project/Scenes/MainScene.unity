@@ -753,7 +753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
+  m_AmplitudeGain: 5
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &310575539
@@ -2454,7 +2454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kickSound: {fileID: 8300000, guid: fce0641d0375e134496574c3bbf01090, type: 3}
   _playerInput: {fileID: 1179954434}
-  _autoMove: 1
+  _autoMove: 0
 --- !u!212 &1179954431
 SpriteRenderer:
   m_ObjectHideFlags: 0
