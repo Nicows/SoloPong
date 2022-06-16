@@ -60,7 +60,6 @@ public class WallSpawn : MonoBehaviour
         var randomX = Random.Range(_LIMIT_MIN_X, _LIMIT_MAX_X);
         var randomY = Random.Range(_LIMIT_MIN_Y, _LIMIT_MAX_Y);
         var spawnPosition = new Vector3(randomX, randomY, 0);
-        Debug.Log("Spawning at: " + spawnPosition);
         var randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         GameObject gm = Instantiate(_wallPrefab, spawnPosition, randomRotation);
         Destroy(gm, _destroyTime);

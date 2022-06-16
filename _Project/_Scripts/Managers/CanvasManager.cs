@@ -58,9 +58,17 @@ public class CanvasManager : MonoBehaviour
     }
     public void ReturnToMenu()
     {
-        PlaySoundButton();
+        ResumeGame();
         SceneManager.LoadScene("Menu");
     }
 
     private void PlaySoundButton() => AudioSystem.Instance.PlayClickButton();
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            PauseGame();
+        }
+    }
 }

@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         _rbPlayer = GetComponent<Rigidbody2D>();
         _movementAction = _playerInput.actions["Move"];
         kickForce = 10f;
-        _ballTransform = GameObject.FindGameObjectWithTag("Ball").transform;
+        // _ballTransform = GameObject.FindGameObjectWithTag("Ball").transform;
     }
 
     private void OnEnable()
@@ -57,14 +57,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputMovements()
     {
+        if (Helpers.IsOverUi()) return;
         if (!PlayerCanMove) return;
 
-        Vector2 direction;
-        Vector2 touchPosition = (SystemInfo.deviceType == DeviceType.Handheld)
+        var touchPosition = (SystemInfo.deviceType == DeviceType.Handheld)
             ? Helpers.Camera.ScreenToWorldPoint(Input.touches[0].position)
             : Helpers.Camera.ScreenToWorldPoint(Input.mousePosition);
 
-        direction = new Vector2(touchPosition.x, transform.position.y);
+        var direction = new Vector2(touchPosition.x, transform.position.y);
         transform.position = direction;
     }
     private void OnCollisionEnter2D(Collision2D collision)

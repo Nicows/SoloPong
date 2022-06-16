@@ -10,19 +10,20 @@ public class BallBehaviour : MonoBehaviour
 
     private void Start()
     {
-        _rigidbodyBall = GetComponent<Rigidbody2D>();
-        _particleSystem = GetComponentInChildren<ParticleSystem>();
+
     }
 
     private void OnEnable()
     {
         // CountDown.OnCountDownEnd += KickBallStart;
-        CanvasManager.OnStartGame += KickBallStart;
+        // CanvasManager.OnStartGame += KickBallStart;
+        _rigidbodyBall = GetComponent<Rigidbody2D>();
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
     private void OnDisable()
     {
         // CountDown.OnCountDownEnd -= KickBallStart;
-        CanvasManager.OnStartGame -= KickBallStart;
+        // CanvasManager.OnStartGame -= KickBallStart;
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class BallBehaviour : MonoBehaviour
 
     public void KickBallStart()
     {
-        Vector2 direction = GetRandomXDirection() + Vector2.up;
+        var direction = GetRandomXDirection() + Vector2.up;
         KickBall(direction);
     }
 
@@ -60,9 +61,14 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        Collision();
+    }
+
+    private void Collision()
+    {
         _particleSystem?.Play();
-        CameraShake.Instance?.ShakeCamera();
         AudioSystem.Instance.PlaySound(_hitSound, 0.8f);
+        CameraShake.Instance?.ShakeCamera(2f);
     }
 
 }
