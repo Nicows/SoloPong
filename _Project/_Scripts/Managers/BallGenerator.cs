@@ -37,10 +37,11 @@ public class BallGenerator : Singleton<BallGenerator>
         }
     }
 
-    public static void DestroyBall(GameObject ball)
+    public static int DestroyBall(GameObject ball)
     {
         Destroy(ball);
         CameraShake.Instance?.ShakeCamera(5f);
         _numberOfBalls--;
+        return _numberOfBalls;
     }
 }

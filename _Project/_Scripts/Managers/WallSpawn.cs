@@ -33,6 +33,7 @@ public class WallSpawn : MonoBehaviour
     private void Start()
     {
         SetUpWalls();
+        SetUpLimitsOfSpawnWall();
     }
 
     private void StartSpawn()
@@ -42,11 +43,18 @@ public class WallSpawn : MonoBehaviour
 
     private void SetUpWalls()
     {
-        var width = Helpers.Camera.orthographicSize * 2.0f * Screen.width / Screen.height;
-        var point = Helpers.Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height / 2, 0));
-        _upWall.transform.localScale = new Vector3(width, _upWall.transform.localScale.y, _upWall.transform.localScale.z);
-        _leftWall.transform.position = new Vector3(-point.x, point.y, 0);
-        _rightWall.transform.position = new Vector3(point.x, point.y, 0);
+        var widthOfScreen = Helpers.Camera.orthographicSize * 2.0f * Screen.width / Screen.height;
+        var topPoint = Helpers.Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        _upWall.transform.localScale = new Vector3(widthOfScreen, _upWall.transform.localScale.y, _upWall.transform.localScale.z);
+        _upWall.transform.position = new Vector3(_upWall.transform.position.x, topPoint.y, _upWall.transform.position.z);
+
+        var midPoint = Helpers.Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height / 2, 0));
+        _leftWall.transform.position = new Vector3(-midPoint.x, midPoint.y, 0);
+        _rightWall.transform.position = new Vector3(midPoint.x, midPoint.y, 0);
+    }
+
+    private void SetUpLimitsOfSpawnWall()
+    {
         var pointLimit1 = _limitPoints[0].transform.position;
         var point2Limit2 = _limitPoints[1].transform.position;
         _LIMIT_MAX_X = pointLimit1.x;
@@ -61,8 +69,8 @@ public class WallSpawn : MonoBehaviour
         var randomY = Random.Range(_LIMIT_MIN_Y, _LIMIT_MAX_Y);
         var spawnPosition = new Vector3(randomX, randomY, 0);
         var randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-        GameObject gm = Instantiate(_wallPrefab, spawnPosition, randomRotation);
-        Destroy(gm, _destroyTime);
+        GameObject go = Instantiate(_wallPrefab, spawnPosition, randomRotation);
+        Destroy(go, _destroyTime);
     }
 
     private void StopSpawn()
