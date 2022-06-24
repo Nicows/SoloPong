@@ -1918,8 +1918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b9c7d2eeaea80419f0363e5fd3e4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textScore: {fileID: 370467889}
   _animator: {fileID: 370467891}
+  _textScore: {fileID: 370467889}
 --- !u!1 &876674192
 GameObject:
   m_ObjectHideFlags: 0
@@ -7204,7 +7204,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179954428}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -8565,7 +8565,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.34873325, y: 1}
+    m_SensorSize: {x: 0.46666667, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -32,7 +32,7 @@ public class BallGenerator : Singleton<BallGenerator>
         ball.transform.position = Vector2.zero;
         if (ball.TryGetComponent<BallBehaviour>(out var ballBehaviour))
         {
-            ballBehaviour.KickBallStart();
+            // ballBehaviour.KickBallStart();
             _numberOfBalls++;
         }
     }

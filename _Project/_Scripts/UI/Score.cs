@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _textScore;
     [SerializeField] private Animator _animator;
+    [SerializeField] private TextMeshProUGUI _textScore;
+    private int _score;
 
     public static event System.Action<int> OnScoreChanged;
-    private int _score;
 
     private void OnEnable()
     {
@@ -42,15 +42,11 @@ public class Score : MonoBehaviour
     {
         int previousHighScore = PlayerPrefs.GetInt("HighScore", 0);
         if (_score > previousHighScore)
-        {
             PlayerPrefs.SetInt("HighScore", _score);
-        }
     }
 
     public void ResetHighScore()
     {
         PlayerPrefs.DeleteKey("HighScore");
     }
-
-
 }

@@ -1,37 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using nicolaskohler;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D _rbPlayer;
-
     [Header("Movements")]
+    private Rigidbody2D _rbPlayer;
     public static bool PlayerCanMove = false;
 
     [Header("Kick")]
     [SerializeField] private AudioClip _kickSound;
-    public static float kickForce { get; private set; } = 10f;
-
-    private Transform _ballTransform;
-    private float _maxKickForce = 35f;
-    // [SerializeField] private ParticleSystem _particleSystem;
-    //TODO: Add particle system to kick
+    public static float KickForce { get; private set; } = 10f;
+    private float _maxKickForce = 30f;
 
     [Header("Inputs")]
     [SerializeField] private PlayerInput _playerInput;
-    private InputAction _movementAction;
     [SerializeField] private bool _autoMove;
+    private InputAction _movementAction;
 
     private void Start()
     {
         _rbPlayer = GetComponent<Rigidbody2D>();
         _movementAction = _playerInput.actions["Move"];
-        kickForce = 10f;
-        // _ballTransform = GameObject.FindGameObjectWithTag("Ball").transform;
+        KickForce = 10f;
     }
 
     private void OnEnable()
@@ -44,47 +36,51 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (_autoMove) AutoMove();
+        // if (_autoMove) AutoMove();
         InputMovements();
     }
 
-    private void AutoMove()
-    {
-        PlayerCanMove = false;
-        var direction = new Vector2(_ballTransform.position.x, transform.position.y);
-        transform.position = direction;
-    }
+    // private void AutoMove()
+    // {
+    //     PlayerCanMove = false;
+    //     var direction = new Vector2(_ballTransform.position.x, transform.position.y);
+    //     transform.position = direction;
+    // }
 
     private void InputMovements()
     {
         if (Helpers.IsOverUi()) return;
         if (!PlayerCanMove) return;
 
-        var touchPosition = (SystemInfo.deviceType == DeviceType.Handheld)
-            ? Helpers.Camera.ScreenToWorldPoint(Input.touches[0].position)
-            : Helpers.Camera.ScreenToWorldPoint(Input.mousePosition);
-
-        var direction = new Vector2(touchPosition.x, transform.position.y);
+        var direction = TouchPosition();
+        direction.y = transform.position.y;
         transform.position = direction;
+
+        Vector2 TouchPosition()
+        {
+            return (SystemInfo.deviceType == DeviceType.Handheld)
+                ? Helpers.Camera.ScreenToWorldPoint(Input.touches[0].position)
+                : Helpers.Camera.ScreenToWorldPoint(Input.mousePosition);
+        }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Ball"))
             KickBall(collision.transform);
     }
+
     private void KickBall(Transform ball)
     {
         AudioSystem.Instance?.PlaySound(_kickSound, 0.8f);
-        // _particleSystem?.Play();
 
-        if (ball.TryGetComponent<Rigidbody2D>(out Rigidbody2D ballRb))
-        {
-            ballRb.AddForce(ballRb.velocity.normalized + kickForce * Vector2.up, ForceMode2D.Impulse);
+        ball.TryGetComponent<Rigidbody2D>(out Rigidbody2D ballRb);
+        ballRb.AddForce(KickForce * Vector2.up, ForceMode2D.Impulse);
 
-            if (kickForce < _maxKickForce)
-                kickForce += 0.2f;
-        }
+        if (KickForce < _maxKickForce)
+            KickForce += 0.2f;
     }
+
     private void PlayerGameOver()
     {
         PlayerCanMove = false;

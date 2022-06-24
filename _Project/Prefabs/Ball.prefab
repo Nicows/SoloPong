@@ -4883,6 +4883,7 @@ GameObject:
   - component: {fileID: 2376893305440802851}
   - component: {fileID: 2376893305440802852}
   - component: {fileID: 2376893305440802848}
+  - component: {fileID: 1094723492638341980}
   m_Layer: 7
   m_Name: Ball
   m_TagString: Ball
@@ -4898,7 +4899,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2376893305440802853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5019,6 +5020,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitSound: {fileID: 8300000, guid: fce0641d0375e134496574c3bbf01090, type: 3}
+--- !u!95 &1094723492638341980
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2376893305440802853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67de8c0c888c8ac4e851f9703ac0e1d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2376893306324772320
 GameObject:
   m_ObjectHideFlags: 0

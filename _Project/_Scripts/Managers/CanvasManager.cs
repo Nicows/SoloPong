@@ -21,13 +21,15 @@ public class CanvasManager : MonoBehaviour
         GameOver.OnGameOver -= DisplayGameOver;
     }
 
+    private void PlaySoundButton() => AudioSystem.Instance.PlayClickButton();
+
     public void StartGame()
     {
+        PlaySoundButton();
         OnStartGame?.Invoke();
         _canvasTouchToStart.gameObject.SetActive(false);
         PlayerMovement.PlayerCanMove = true;
     }
-
 
     public void RestartGame()
     {
@@ -62,13 +64,15 @@ public class CanvasManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    private void PlaySoundButton() => AudioSystem.Instance.PlayClickButton();
-
     private void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)
-        {
             PauseGame();
-        }
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+            PauseGame();
     }
 }
