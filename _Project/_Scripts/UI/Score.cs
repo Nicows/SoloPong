@@ -5,6 +5,8 @@ public class Score : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private TextMeshProUGUI _textScore;
+    [SerializeField] private TextMeshProUGUI _textScoreGameOver;
+    [SerializeField] private TextMeshProUGUI _highScore;
     private int _score;
 
     public static event System.Action<int> OnScoreChanged;
@@ -26,6 +28,7 @@ public class Score : MonoBehaviour
     {
         _score = 0;
         _textScore.text = _score.ToString();
+        _highScore.text = "HighScore : " + GetHighScore();
     }
 
     public void AddScore()
@@ -34,6 +37,7 @@ public class Score : MonoBehaviour
         OnScoreChanged?.Invoke(_score);
         _textScore.text = _score.ToString();
         _animator.Play("ScoreAnim");
+        _textScoreGameOver.text = $"Score : {_score}";
     }
 
     public int GetHighScore() => PlayerPrefs.GetInt("HighScore", 0);

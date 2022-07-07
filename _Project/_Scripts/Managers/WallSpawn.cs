@@ -70,7 +70,8 @@ public class WallSpawn : MonoBehaviour
         var spawnPosition = new Vector3(randomX, randomY, 0);
         var randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         GameObject go = Instantiate(_wallPrefab, spawnPosition, randomRotation);
-        Destroy(go, _destroyTime);
+        var wallTouch = go.GetComponentInChildren<WallTouch>();
+        StartCoroutine(wallTouch.WaitBeforeDestroy(_destroyTime));
     }
 
     private void StopSpawn()

@@ -4,18 +4,20 @@ public class BallGenerator : Singleton<BallGenerator>
 {
 
     [SerializeField] private GameObject _ballPrefab;
-    public static int _numberOfBalls = 0;
+    [SerializeField] public int _numberOfBalls = 0;
 
 
     private void OnEnable()
     {
         Score.OnScoreChanged += CheckScore;
         CanvasManager.OnStartGame += GenerateBall;
+        GameOver.OnDestroyBall += DestroyBall;
     }
     private void OnDisable()
     {
         Score.OnScoreChanged -= CheckScore;
         CanvasManager.OnStartGame -= GenerateBall;
+        GameOver.OnDestroyBall -= DestroyBall;
     }
 
     private void CheckScore(int score)
@@ -37,11 +39,11 @@ public class BallGenerator : Singleton<BallGenerator>
         }
     }
 
-    public static int DestroyBall(GameObject ball)
+    public int DestroyBall(GameObject ball)
     {
         Destroy(ball);
-        CameraShake.Instance?.ShakeCamera(5f);
         _numberOfBalls--;
+        CameraShake.Instance?.ShakeCamera(5f);
         return _numberOfBalls;
     }
 }

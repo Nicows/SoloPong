@@ -66,13 +66,16 @@ public class CanvasManager : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus)
     {
+        if (!IsPlaying()) return;
         if (pauseStatus)
             PauseGame();
     }
 
     private void OnApplicationFocus(bool hasFocus)
     {
+        if (!IsPlaying()) return;
         if (!hasFocus)
             PauseGame();
     }
+    private bool IsPlaying() => !_panelGameOver.gameObject.activeInHierarchy && !_canvasTouchToStart.gameObject.activeInHierarchy;
 }
